@@ -12,6 +12,7 @@ class CompteBancaire
         $this->_soldeIni = $soldeIni;
         $this->_devise = $devise;
         $this->_titulaire = $titulaire;
+        $titulaire->ajoutCompteBC($this);
     }
 
     /**
@@ -98,14 +99,14 @@ class CompteBancaire
         return $this->get_libelle().' '.$this->get_soldeIni().' '.$this->get_devise().' '.$this->get_titulaire();
     }
 
-    public function crediterCompte($montant){
+    public function crediterCompte(int $montant){
 
         $solde = $this->get_soldeIni() + $montant;
         $this->set_soldeIni($solde);
 
         return ;
     }
-    public function debiterCompte($montant){
+    public function debiterCompte(int $montant){
 
         $solde = $this->get_soldeIni() - $montant;
         $this->set_soldeIni($solde);
@@ -113,7 +114,7 @@ class CompteBancaire
         return ;
     }
 
-    public function virement($montant,$compteCrediter){
+    public function virement(int $montant,CompteBancaire $compteCrediter){
 
         $this->debiterCompte($montant);
 
